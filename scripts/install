@@ -10,6 +10,14 @@ source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
+# INSTALL DEPENDENCIES
+#=================================================
+ynh_script_progression --message="Installing dependencies..." --weight=7
+
+# Install Nodejs
+ynh_exec_warn_less ynh_install_nodejs --nodejs_version=$nodejs_version
+
+#=================================================
 # APP "BUILD" (DEPLOYING SOURCES, VENV, COMPILING ETC)
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -53,7 +61,8 @@ ynh_script_progression --message="Building $app... (this will take some time and
 
 pushd "$install_dir"
 	ynh_use_nodejs
-	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn workspaces focus --production
+	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn install
+	ynh_exec_warn_less sudo -u $app env $ynh_node_load_PATH yarn release
 popd
 
 #=================================================
