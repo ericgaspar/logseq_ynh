@@ -38,9 +38,9 @@ ynh_script_progression "Adding system configurations related to $app..."
 ynh_config_add_nginx
 
 # Create a dedicated systemd config
-ynh_config_add_systemd
+#ynh_config_add_systemd
 
-yunohost service add "$app" --description="A short description of the app" --log="/var/log/$app/$app.log"
+#yunohost service add "$app" --description="A short description of the app" --log="/var/log/$app/$app.log"
 
 #=================================================
 # INSTALL LOGSEQ
@@ -50,13 +50,13 @@ ynh_script_progression "Installing the app..."
 pushd "$install_dir"
  	ynh_hide_warnings ynh_exec_as_app yarn config set network-timeout 240000
  	ynh_hide_warnings ynh_exec_as_app yarn install
- 	ynh_hide_warnings ynh_exec_as_app yarn release 
+ 	ynh_hide_warnings ynh_exec_as_app yarn run release 
 popd
 
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
-ynh_script_progression "Starting $app's systemd service..."
+#ynh_script_progression "Starting $app's systemd service..."
 
 # Start a systemd service
 #ynh_systemctl --service="$app" --action="start"
